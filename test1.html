@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>precompile</title>
+    <!--预编译  例题-->
+</head>
+<body>
+    <script>
+
+        // 1.创建GO/AO对象
+        // 2.找形参和变量声明，将变量和形参名作为AO属性名，值为undefined
+        // 3.将实参值和形参统一
+        // 4.在函数体里面找函数声明，值赋予函数体 （注：没有函数表达式 function () {} ）
+
+
+        a = 100;//未声明，预编译 GO{a：undefined}，预编译完，运行时赋值。
+       function demo(e){
+           function e() {}
+           arguments[0] = 2;
+           console.log(e);//2
+           if(a){
+               var b = 123;//预处理时，AO{ b:undefined }
+               function c() {} //if中不能写function！！
+           }
+           var c;
+           a = 10;//并没有预处理这一句。在运行函数时，赋值。
+           var a;
+           console.log(b);//undefined
+           f = 123;//window.c 全局
+           console.log(c);//undefined 因为函数运行时a=undefined
+           console.log(a);//10
+       }
+       var a;
+       demo(1);
+       console.log(a);//100
+       console.log(f);//123
+    </script>
+
+</body>
+</html>
