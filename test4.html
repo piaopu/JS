@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scope</title>
+
+</head>
+<body>
+    <script type="text/javascript">
+
+        function a() {
+            function b() {
+                var  bb = 234;
+                aa = 0;
+            }
+            var aa = 123;
+            b();
+            console.log(aa);//aa=0，说明用函数b，成功更改aa的值
+        }
+        var glob = 1000;
+        a();
+        a();
+
+        //a defined a.[[scope]] --> 0:GO{} a能访问全局
+        //a  doing  a.[[scope]] --> 0:AO{} a函数执行前一刻，生成AO对象
+        //                          1:GO{}
+        //b defined b.[[scope]] --> 0:a的AO
+        //                          1:GO{} 这两个是 a.[[scope]]里的，同一个，相当于指向同一个对象
+        //b  doing  b.[[scope]] --> 0:AO{} b函数的
+        //                          1:a的AO
+        //                          2:GO{}
+        //b执行完之后，b的AO就不要了，回归为刚创建的状态
+        //a执行完了，a的AO就不要了，由于a的AO里有b：function，所以b函数没了。a回归到被创建的状态
+        //a();再次执行a函数，新建a的AO到a.[[scope]]
+        //a  doing  a.[[scope]] --> 0:new AO{} 新的a的AO
+        //                          1:GO{}
+
+        //a执行了，b才会开始被创建
+
+    </script>
+
+</body>
+</html>

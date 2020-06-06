@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>typeof</title>
+</head>
+<body>
+    <script>
+        var str = false + 1;
+        document.write(str);//1
+        var demo = false == 1;
+        document.write(demo);//false
+        document.write(-true);//-1
+        document.write(+undefined);//NaN
+        document.write(-true + (+undefined) + "");//NaN  "NaN"字符串类型
+        if(typeof(a) && -true + (+undefined) + ""){// "undefined" && "NaN"
+            document.write("基础扎实");//可以输出
+        }
+        if(11 + "11" * 2 == 33){//"11"*2 => 22 隐式Number（'11'）=11
+            document.write("基础扎实");//可以输出
+        }
+        !!" " + !!"" - !!false || document.write("你觉得能打印，你就是猪猪");
+      // true + false-false => 1
+      // 前面为true就停止了，不运行后一个
+    </script>
+
+</body>
+</html>
