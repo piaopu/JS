@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>eater</title>
+<!--    闭包的作用之 可以做缓存（存储结构）   -->
+</head>
+<body>
+
+    <script type="text/javascript">
+        function eater() {
+            var food = "";
+            var obj = {
+                eat : function () {
+                    console.log("i am eating " + food);
+                    food = "";
+                },
+                addfood : function (myFood) {
+                    food = myFood;
+                }
+            }
+            return obj;
+        }
+
+        var eater1 = eater();
+        eater1.addfood("banana");
+        eater1.eat();
+
+        var f1 = {
+            name : "deng",//属性
+            age : "18"
+        }
+    </script>
+
+</body>
+</html>

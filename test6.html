@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>closure</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        function test() {
+            var num = 100;
+            function a() {
+                num++;
+                console.log(num);
+            }
+            //a defined a.[[scope]] 0:test AO
+            //                      1:GO
+            function b() {
+                num--;
+                console.log(num);
+            }
+            //b defined b.[[scope]] 0:test AO
+            //                      1:GO
+            return [a, b];
+        }
+
+        var myArr = test();
+        myArr[0]();
+        //a doing a.[[scope]]   0: a  AO
+        //                      1:test AO   num=101
+        //                      2:GO
+        myArr[1]();
+        //a doing a.[[scope]]   0: a  AO
+        //                      1:test AO  num=100 同一个数的处理
+        //                      2:GO
+
+    </script>
+
+</body>
+</html>

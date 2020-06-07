@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        function a() {
+            function b() {
+                var bbb = 234;
+                document.write(aaa);
+            }
+            var aaa = 123;
+            return b;
+        }
+
+        var glob = 100;
+        var demo1 = a();//把函数b返回了，demo=b
+        //a在执行完后回丢掉a的AO，由于函数最后返回了b，a.[[scope]]中没有a的AO
+        //但是，b.[[scope]]中的a的AO和GO是存在的。
+
+        demo1();//输出123，即b中输出语句执行成功。而aaa变量是b.[[scope]]中的a的AO的。
+
+        function f1() {
+            var num = 100;
+            function f2() {
+                num++;
+                console.log(num);
+            }
+            return f2;
+        }
+        var demo2 = f1();
+        demo2();//101
+        demo2();//102
+
+    </script>
+
+</body>
+</html>
