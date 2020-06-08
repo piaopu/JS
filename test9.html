@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        //坏的闭包
+        function test() {
+            var arr = [];
+            for (var i = 0; i < 10; i++){
+                arr[i] = function () {//定义时，不考虑函数内容，i在一直变大
+                    document.write(i + " ");
+                };
+            }
+            return arr;
+        }
+        var myArr = test();
+        for (var j = 0; j < 10; j++){
+            myArr[j]();//输出显示：10 10 10 10 10 10 10 10 10 10
+            //执行时，arr[] 函数才执行，但此时i已经变成10了
+        }
+
+        //好的闭包
+        //修改后，使得函数arr[]执行时，输出0 1 2 3 4……
+        //立即执行函数的思路
+        function test2() {
+            var arr2 = [];
+            for (var i2 = 0; i2 < 10; i2++){//立即函数执行了十次
+                (function (j2){//立即执行函数 i2是实参
+                    arr2[j2] = function (){//立即函数执行，就是定义arr数组元素。
+                        //每次立即函数执行，均产生对应的 AO对象
+                        // 每个元素都是函数，但是没有执行
+                        // 元素的作用域中存在 立即函数的AO，且j2值存在该AO中
+                        document.write(j2 + " ");
+                    }
+                }(i2));
+            }
+            return arr2;
+        }
+
+        var myArr2 = test2();//myArr2指向arr2数组首地址
+        for (var j2 = 0; j2 < 10; j2++){
+            myArr2[j2]();//0 1 2 3 4 5 6 7 8 9
+            //此处执行的时候，每个数组元素生成对应的AO对象
+            //执行时，按作用域链的顺序查找，找到j2值并输出
+        }
+
+    </script>
+
+</body>
+</html>
