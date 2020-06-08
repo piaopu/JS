@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Object</title>
+<!--    对象 -->
+</head>
+<body>
+    <script type="text/javascript">
+        var People = {
+            name : "Sam",//对象的属性
+            age : 48,
+            sex : "male",
+            health : 100,
+            smoke : function () {
+                console.log("I am smoking!");
+                this.health--;
+            },
+            drink : function (n) {//对象的方法
+                console.log("I am drinking");
+                this.health -= n;
+            }
+        }
+
+        People.smoke();//对象方法的调用
+        People.drink(5);
+        People.num = "001";//对象属性的添加
+        People.age = 20;//对象属性的更改
+
+        delete People.num;//对象属性的删除
+
+        //对象的创建方法
+        //1.var obj = {} plainObject 简单对象   对象字面量/对象直接量
+        var employee = {name: "Jack"};
+
+        //2.构造函数
+        //     1）系统自带的构造函数 new Object ( )
+        var  Car = new Object();
+        Car.price = "一万元";
+
+        //     2) 自定义   外部添加属性和对象
+        function User() {
+            //创建对象时 隐式 var this = {};空对象   AO {……}
+            this.password = "123456";
+            //隐式 return this
+
+        }
+        var user1 = new User();
+
+        //工厂模式
+        function createStudent(name,age,grade) {
+            var o = new Object();
+            o.name = name;
+            o.age = age;
+            o.grade = grade;
+            o.say = function(){
+                alert(this.name);
+            }
+            return o;
+        }
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+       function Person(name, age, sex) {
+            var a = 0;
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            function sss() {
+                a++;
+                console.log(a);
+            }
+            this.say = sss;
+       }
+
+       var oPerson = new Person();
+       oPerson.say();//1
+       oPerson.say();//2 闭包问题
+       var oPerson1 = new Person();
+       oPerson1.say();//1
+
+
+        var x = 1, y = z = 0;
+        function add(n) {//第二个add()函数覆盖了第一个
+            return n = n + 1;
+        }
+        y = add(x);//1+3
+
+       function add(n) {
+           return n = n + 3;
+       }
+       z = add(x);//1+3
+
+       console.log("x = ", x);//1
+       console.log("y = ", y);//4
+       console.log("z = ", z);//4
+
+    </script>
+</body>
+</html>
