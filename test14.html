@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    原型 -->
+</head>
+<body>
+    <script type="text/javascript">
+
+        Person.prototype.LastName = "Smith";
+
+        function Person(name) {
+            //var this = {
+            //      __proto__:Person.prototype  __proto__指向了原型
+            //};
+            this.name = name;
+            this.sayName = function () {
+                console.log("My name is "+this.name+" "+this.LastName);
+            }
+        }
+        var person1 = new Person("Ben");
+        person1.sayName();
+
+        person1.LastName;//访问继承属性
+
+        //delete删除不了原型链的变量
+        delete person1.LastName;//删不掉
+        delete Person.prototype.LastName;//删的掉
+
+        //原型另一种写法，原型可以为空，也可以更改
+        Person.prototype = {
+            LastName : "Brown"
+        }
+
+        //查看
+        console.log(Person.prototype);//构造函数.prototype,获取对象原型
+        console.log(person1.__proto__);//对象实例.__proto__，获取对象原型
+        console.log(person1.constructor);//对象实例.constructor，获取构造函数
+
+        var obj = {
+            LastName : "Johnson"
+        }
+
+        var person2 = new Person("Jack");
+        person2.__proto__ = obj;//person2的函数原型是obj
+
+
+
+    </script>
+</body>
+</html>
