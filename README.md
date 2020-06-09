@@ -19,3 +19,12 @@ test8.html 有关立即执行函数
 
 test9.html 闭包+立即指向函数
 
+test10.html 对象及其创建
+
+test11.html 包装类
+
+test12.html 简单的两道题
+
+test13.html toString函数及其参数
+
+test14.html 原型
