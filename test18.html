@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--   call / apply -->
+</head>
+<body>
+    <script type="text/javascript">
+
+        function Person(name, age){
+            //this == obj
+            this.name  = name;
+            this.age = age;
+        }
+        var obj = {
+        }
+        var person = new Person("Jack", 18);
+
+        //Person.call(); Person(); 这两句话的执行没有任何区别
+
+        //Person.call(obj);
+        //obj.name obj.age
+
+        Person.call(obj, "Jim", 20);
+        //改变了this的指向
+        console.log(obj.name);//Jim
+
+        function Student(name, age, grade) {
+            Person.call(this, name, age);
+            //相当于借助了Person的构造方法，实现了自己的封装
+            this.grade = grade;
+        }
+        var student = new Student("Sam", 30, 93);
+
+
+    </script>
+</body>
+</html>

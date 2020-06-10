@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--  浮点数精度的问题  -->
+</head>
+<body>
+    <script type="text/javascript">
+        for (var i = 0; i < 10; i++){
+            var num = Math.random().toFixed(2) * 100;//（0，100）有点小bug 如：55.00000000000001
+            // 精度小偏差
+            //（0，1）随机数
+            console.log(num);
+        }
+        //不用以上方法
+
+        for (var i = 0; i < 10; i++){
+            var num = Math.random() * 100;//（0，100）有点小bug 如：55.00000000000001
+            //（0，1）随机数
+
+            //返回小于等于x的最大整数: Math.floor
+            console.log(num.toFixed(0));
+            console.log(Math.floor(num));
+        }
+
+        //小数点前16位，小数点后16位  可正常计算的范围
+
+    </script>
+</body>
+</html>

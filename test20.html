@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--  闭包 和 继承 -->
+</head>
+<body>
+    <script type="text/javascript">
+        function User(name, age) {
+            var password = "123456";
+            this.name = name;
+            this.age = age;
+            this.changePassword = function (target) {
+                password = target;
+            }
+            this.sayPassword = function () {
+                console.log(password);
+            }
+        }
+        var user = new User("Jack", 18);
+        console.log(user.password);
+        //undefined 相当于私有化变量password
+        user.sayPassword();
+
+
+        Father.prototype.LastName = "Smith";
+        function Father() {
+        }
+        function Son() {
+        }
+
+        var inherit = (function () {//这是一个立即执行函数，执行结果就是inherit
+            var F = function () {};//F是对象
+            return function (Target, Origin) {//返回的是执行函数的结果，也就是引用
+                F.prototype = Origin.prototype;
+                Target.prototype = new F();//调用了外部的变量
+                Target.prototype.constructor = Target;
+                Target.prototype.uber = Origin.prototype;//继承
+            }
+        }());
+
+    </script>
+</body>
+</html>

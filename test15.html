@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--  原型链  -->
+</head>
+<body>
+    <script type="text/javascript">
+
+        //Grand.prototype.__proto__ --> Object.prototype
+        Grand.prototype.LastName = "Simth";
+        function Grand() {
+
+        }
+        var grand = new Grand();
+
+        Father.prototype = grand;
+        function Father() {
+            this.name = "Jack";
+            this.fortune = {
+                car1 : 100
+            }
+            this.num = 100;
+        }
+        var father = new Father();
+
+        Son.prototype = father;
+        function Son() {
+            this.hobbit = "smoke";
+        }
+        var son = new Son();
+
+        //原型链
+        console.log(son.hobbit);//smoke
+        console.log(son.name);//Jack
+        console.log(son.LastName);//Smith
+
+        son.fortune.car1++;//更改继承的father实例中的属性值
+        console.log(son.fortune.car1);//101
+        console.log(son);
+        console.log(father.fortune.car1);//101
+        console.log(father);
+
+        son.fortune = 101;
+        //这个不能这么写，写出来就是在son中添加了fortune属性，会优先使用
+        //所以son.fortune.car2 = 99;这样赋值后，不会成功，undefined
+        console.log(son);
+        delete son.fortune;
+
+        //本来是没有car2的
+        son.fortune.car2 = 99;//添加成功，且在father里面
+        //son.fortune是引用值，可以给自己加属性，son.fortune.car2这种修改是成功的
+        console.log(son.fortune.car2);//99
+        console.log(son);
+
+        console.log(father.fortune.car2);//99
+        console.log(father);
+
+
+        son.num++;//son.num = son.num + 1;
+        //取得father.num的值，相加，赋值给son的新属性
+        console.log(son.num);//101
+        console.log(father.num);//100 不变
+
+    </script>
+</body>
+</html>

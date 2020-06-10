@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--  继承  -->
+</head>
+<body>
+    <script type="text/javascript">
+        //原型链
+        //借用构造函数
+        //共享原型
+        //圣杯模式
+
+        Father.prototype.LastName = "Simth";
+        function Father() {
+        }
+        function Son() {
+        }
+
+        //Son.prototype = Father.prototype;
+        //共享原型
+        function inherit(Target, Origin) {
+            Target.prototype = Origin.prototype;
+        }
+        inherit(Son, Father);
+        var son = new Son();
+
+
+        //圣杯模式
+        function inherit(Target, Origin) {
+            function F(){};
+            F.prototype = Origin.prototype;
+            Target.prototype = new F();
+            //Target.constructor 要归位
+            Target.prototype.constructor = Target;
+
+            Target.prototype.uber = Origin.prototype;
+            //信息储存，为了知道Target真正继承自谁
+
+        }
+        inherit(Son, Father);
+        var son = new Son();
+
+        console.log(son.constructor);//输出：ƒ Father() {}
+        //son.__proto__  ->  F.__proto__  -> Father.prototype
+        //所以指向紊乱
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    使用闭包实现变量的管理，不污染全局变量-->
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        var name = "bcd";
+
+        var init1 = (function () {
+
+            var name = "abc";
+            function callName() {
+                console.log(name);
+            }
+            return function () {
+                callName();//返回一个借口，可以调用函数
+            }
+        }());
+
+        var init2 = (function () {
+
+            var name = "efg";
+            function callName() {
+                console.log(name);
+            }
+            return function () {
+                callName();//返回一个借口，可以调用函数
+            }
+        }());
+
+        init1();//输出：abc  不污染全局变量
+        init2();//输出：efg  互不干扰
+
+    </script>
+
+</body>
+</html>

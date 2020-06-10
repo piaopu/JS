@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--  this + 重写  -->
+</head>
+<body>
+    <script type="text/javascript">
+
+
+        Person.prototype = {
+            name : "a",
+            sayName : function () {
+                console.log(this.name);
+                //这里的这个this指向的是，谁调用的这个方法，this就指向谁
+            }
+        }
+        function Person() {
+            this.name = "b";
+        }
+
+        var person = new Person();
+        person.sayName();//b
+        Person.prototype.sayName();//a
+
+        console.log(person.toString());//[object Object]
+        Object.prototype.toString = function () {
+            return "hehe";
+        };
+        //上面重写了 Object.prototype.toString
+        console.log(person.toString());//hehe
+
+        //Number.prototype.toString 是系统自己重写
+        var num = 123;
+        console.log(num.toString());//123 字符串
+
+
+        var obj = Object.create(null);
+        //document.write(obj);//打印的toString的结果
+        //这个地方会报错
+        obj.toString = function(){
+            return "345"
+        };
+        document.write(obj);//345
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    属性名的拼接 -->
+</head>
+<body>
+
+    <script type="text/javascript">
+        var fortune = {
+            car1 : {money : 1000},
+            car2 : {money : 9999},
+            sayMoney : function (num) {
+                console.log(fortune["car1" + num].money);
+                return this;
+            },
+            sayCar :function (num) {
+                console.log(fortune["car1" + num]);
+                return this;
+            }
+        }
+
+        fortune.sayCar().sayMoney();//对象方法的连续调用
+
+        
+    </script>
+
+</body>
+</html>

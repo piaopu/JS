@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    对象属性的遍历 -->
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        var person = {//对象
+            name : "Jack",
+            age : 18,
+            sex : "female",
+            height : 170,
+            say : function () {
+                console.log(this.name);
+            },
+            __proto__ : {
+                LastName : "Smith"
+            }
+        }
+
+        for (var prop in person){
+            console.log(prop + " " + typeof(prop));
+            //注意！ person.prop 不能这么写
+            console.log(person[prop]);//可以
+            //console.log(person['prop'])
+            //不可以 等于这个person.prop 认为是属性了
+        }
+
+        for (var prop in person){
+            if(person.hasOwnProperty(prop)){//不是自己的，返回false
+                console.log(person[prop]);//少输出了 Smith
+                //hasOwnProperty 访问不了系统自带的，包括原型链的最顶端
+            }
+        }
+
+        function User() {
+            this.password = "123456";
+        }
+        var user = new User();
+
+        if (user instanceof User) {
+            console.log("true");
+            //obj instanceof Object  -->  Object.prototype是否存在于参数obj的原型链上。
+        }
+
+
+
+
+
+    </script>
+
+</body>
+</html>
