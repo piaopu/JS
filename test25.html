@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    类数组 + 封装type + 数组去重 -->
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        //类数组，属性为索引，且有length，最好加push，
+        var obj = {
+            "0" : 'a',
+            "1" : 'b',
+            "2" : 'c',
+            "length" : 3,
+            "push" : Array.prototype.push,
+            name : "Jack",
+            age : 18
+        }
+        for(var prop in obj){
+            console.log(obj[prop]);
+        }
+
+
+        //封装type
+        function type(target) {
+        //  两类 原始值和引用值
+            var ret = typeof(target) ;
+            var template = {
+                '[object Array]'  : 'array',
+                '[object Object]' : 'object',
+                '[object String]' : 'string - object',
+                '[object Number]' : 'Number - object',
+                '[object Boolean]': 'Boolean - object',
+            }
+            if(target === null){
+                return 'null';
+            }
+            if(ret == 'object'){
+                var str = Object.prototype.toString.call(target);
+                return template[str];
+            }
+            else {
+                return ret;
+            }
+
+        }
+
+
+        //数组去重
+        var arr = [0,0,1,2,1,'a','b','a','b'];//思路是将数组元素作为对象的属性名
+        Array.prototype.unique = function () {
+            var temp = {},
+                NewArr = [],
+                length = this.length;
+            for(var i=0; i<length; i++){
+                if(!temp[this[i]]){//该元素不存在于temp对象中，需要加进去
+                    temp[this[i]] = 'abc';//此处赋值需要是不为0的
+                    NewArr.push(this[i]);
+                }
+            }
+            return NewArr;
+        };
+        
+
+    </script>
+
+</body>
+</html>

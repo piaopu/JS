@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    深层拷贝 -->
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        var person = {
+            name : "Jack",
+            age : 18,
+            sex : "female",
+            say : function () {
+                console.log(this.name);
+            },
+            fortune : ["car1", "car2"]
+        }
+
+        function deepClone(origin, target) {
+            var target = target || {},
+                toStr = Object.prototype.toString(),
+                arrStr = "[object Array]";
+            for (var prop in origin){
+                if(origin.hasOwnProperty(prop)){
+                    if(origin[prop] !== "null" && typeof(origin[prop]) == "Object"){ //非空且是引用值
+                        // if(toStr.call(origin[prop]) == arrStr){ //数组
+                        //     target[prop] = [];//新建数组
+                        // }else {
+                        //     target[prop] = {};//新建对象
+                        // }
+
+                        //用三目运算符简化
+                        target[prop] = (toStr.call(origin[prop]) == arrStr) ? [] : {};
+
+                        deepClone(origin[prop],target[prop]);//递归调用
+
+                    }else{//原始值直接拷贝
+                        target[prop] = origin[prop];
+                    }
+                }
+            }
+            return target;
+        }
+        var person1;
+
+    </script>
+
+</body>
+</html>
