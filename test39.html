@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--  readyState js时间线  -->
+</head>
+<body>
+
+    <script type="text/javascript">
+        console.log(document.readyState);
+        // window.onload = function () {
+        //     console.log(document.readyState);
+        // };
+
+        document.onreadystatechange = function () {
+            console.log(document.readyState);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('a');
+        },false);
+
+        //当dom解析完就执行的部分
+        // $(document).ready(function () {
+        //
+        // });
+    </script>
+
+</body>
+</html>

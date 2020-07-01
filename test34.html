@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--  事件+立即执行函数  封装addEvent  解除事件处理  -->
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <div style="height: 100px; width: 100px; background: yellow;"></div>
+    <script type="text/javascript">
+
+        var liCol = document.getElementsByTagName('li'),
+            length = liCol.length;
+        for(var i = 0; i<length; i++){
+            (function (i) {
+                liCol[i].addEventListener('click', function () {
+                    console.log(i);
+                    //this.onclick = null;
+                    //加上上面的，就是一次失效
+                }, false);
+            }(i));
+        }
+
+        //封装addEvent
+        function addEvent(elem, type, handle){
+            if(ele.addEventListener){
+                ele.addEventListener(elem, handle, flase);
+            }else if(ele.attachEvent){
+                elem.attachEvent('on' + type, function(){
+                    handle.call(elem);
+                })
+            }else{
+                elem['on'+ type] = handle;
+            }
+        }
+
+        //解除事件处理
+        var div = document.getElementsByTagName('div')[0];
+
+        var test = function () {
+            console.log('1');
+        };
+
+        div.addEventListener('click', test, false);
+        div.removeEventListener('click', test, false);
+
+        div.onclick = test;
+        div.onclick = null;
+    </script>
+
+</body>
+</html>

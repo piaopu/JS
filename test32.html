@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    小方块的移动 -->
+   <style>
+       .demo {
+           width: 100px;
+           height: 100px;
+           position: absolute;
+           background: greenyellow;
+           left: 0;
+           top: 0;
+       }
+
+   </style>
+
+</head>
+<body>
+    <div class="demo"></div>
+
+    <script type="text/javascript">
+
+        var div = document.getElementsByTagName('div')[0];
+
+        // div.onclick = function () {
+        //     var timer = window.setInterval(function () {
+        //         div.style.left = parseInt(getComputedStyle(div, null)['left']) + 1 + 'px';
+        //         if(parseInt(getComputedStyle(div, null)['left'])> 1000){
+        //             clearInterval(timer);
+        //         }
+        //     }, 10);
+        // };
+
+        var timer = setInterval(function () {
+                div.style.left = parseInt(window.getComputedStyle(div, null)['left']) + 1 + 'px';
+                if(parseInt(window.getComputedStyle(div, null)['left'])> 500){
+                    clearInterval(timer);
+                }
+            }, 10);
+
+    </script>
+
+</body>
+</html>

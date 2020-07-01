@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--   事件源对象 和 事件委托 -->
+</head>
+<body>
+    <ul id="ul">
+        <li>a</li>
+        <li>b</li>
+        <li>c</li>
+    </ul>
+
+    <script type="text/javascript">
+
+        //兼容写法 获取事件源对象
+        document.onclick = function (e) {
+            var event = e || window.event;
+            var target = event.srcElement || event.target;
+            console.log(target);
+        }
+
+        //事件委托
+        var ul = document.getElementById('ul');
+        var liCol = document.getElementsByTagName('li'),
+            length = liCol.length;
+
+        //1、
+        //li标签一旦数量庞大，代码执行效率就会受到影响
+        // for (var i = 0; i < length; i++) {
+        //     liCol[i].onclick = function () {
+        //         console.log(this.innerText);//打印li标签上的文字
+        //     };
+        // }
+
+        //2、
+        //利用事件冒泡，和事件源对象进行事件处理
+        ul.onclick = function (e) {
+            var event = e || window.event;
+            var target = event.srcElement || event.target;
+            console.log(target.innerText);
+        };
+
+        //1 2 两段代码的执行效果一模一样
+
+    </script>
+
+</body>
+</html>

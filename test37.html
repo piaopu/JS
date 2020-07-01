@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    鼠标拖拽功能 -->
+</head>
+<body>
+    <div style="height: 100px; width: 100px; background: yellow; position: absolute; left: 0px; top: 100px;"></div>
+
+    <!--    输入框的小例子-->
+    <input type="text" value="请输入用户名" style="color:#999"
+           onfocus="if(this.value =='请输入用户名'){this.value =''; this.style.color='#424242'}"
+           onblur="if(this.value ==''){this.value = '请输入用户名'; this.style.color='#999'}">
+
+
+    <script type="text/javascript">
+
+        //例子，拖拽div元素
+        var div = document.getElementsByTagName('div')[0];
+        var disX,disY;
+
+        div.onmousedown = function (e) {
+            disX = e.pageX - parseInt(div.style.left);
+            disY = e.pageY - parseInt(div.style.top);
+
+            document.onmousemove = function (a) {
+                var event = a || window.event;
+                //console.log(event.pageX + " " + event.pageY);//打印出鼠标坐标
+                div.style.left = event.pageX - disX + "px";
+                div.style.top = event.pageY - disY + "px";
+            }
+            document.onmouseup = function () {
+               document.onmousemove = null;
+            }
+        }
+
+        //封装drag方法，是的参数元素实现拖拽
+        //别人封装好的，我放在下面
+        function drag(elem) {
+            var disX,
+                disY;
+            addEvent(elem,'mousedown',function(e) {
+                var event = e || window.event;
+                disX = event.clientX - parseInt(getstyle(elem,'left'));//clientX 鼠标X
+                disY = event.clientY - parseInt(getstyle(elem,'top'));
+                addEvent(document,'mousemove',mouseMove);
+                addEvent(document,'mouseup',mouseUp);
+                stopBubble(event);
+                cancelHandler(event);
+            });
+            function mouseMove(e) {
+                var event = e || window.event;
+                elem.style.left = event.clientX - disX + "px";
+                elem.style.top = event.clientY - disY + "px";
+            }
+            function mouseUp(e) {
+                var event = e || window.event;
+                removeEvent(document,'mousemove',mouseMove);
+                removeEvent(document,'mouseup',mouseUp);
+            }
+        }
+
+        //封装addEvent 添加事件
+        function addEvent(elem,type,handle) {
+            if(elem.addEventListener) {//通用 IE9以下不兼容
+                elem.addEventListener(type,handle,false);
+            }else if(elem.attachEvent) {//兼容IE
+                elem.attachEvent('on' + type,function() {
+                    handle.call(elem);//this本身指向window，加上call(elem)使this指向elem
+                })
+            }else{//兼容性最好，但一个事件只能绑定一个处理函数（缺陷）
+                elem['on' + type] = handle;
+            }
+        }
+        //封装removeEvent 解除事件
+        function removeEvent(elem,type,handle){
+            if(elem.removeEventListener){
+                elem.removeEventListener(type,handle,false);
+            }else if(elem.detachEvent){
+                elem.detachEvent('on'+type,handle);
+            }else{
+                elem['on'+type] = null;
+            }
+        }
+        //封装stopBubble 解除冒泡
+        function stopBubble(event) {
+            if(event.stopPropagation) {
+                event.stopPropagation();
+            }else{
+                event.cancelBubble = true;
+            }
+        }
+        //封装cancelHandler 解除默认事件
+        function cancelHandler(event) {
+            if(event.preventDefault) {
+                event.preventDefault();
+            }else{
+                event.returnValue = false;
+            }
+        }
+    </script>
+
+</body>
+</html>

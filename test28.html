@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    DOM节点   -->
+</head>
+<body>
+
+    <div >
+        <strong>
+            <span>
+                <i></i>
+            </span>
+        </strong>
+
+        <p></p>
+        <em></em>
+    </div>
+    <div>
+        <span></span>
+    </div>
+
+    <script type="text/javascript">
+
+        var div = document.getElementsByTagName('div')[0];
+
+        //取元素子 节点
+        function retElementChild(node) {
+            //no children
+            var temp = {
+                length : 0,
+                push : Array.prototype.push,
+            },
+                child = node.childNodes,
+                len = child.length;
+
+            for(var i = 0; i < len; i++){
+                if(child[i].nodeType === 1){
+                    temp.push(child[i].nodeType);
+                }
+            }
+        }
+
+        //document 继承自 HTMLDocument
+        //HTMLDocument 继承自 Document
+        //Document 继承自 Node
+
+        //document.documentElement 指的是 html文档
+
+
+        //返回父级元素，指定上数n级
+        function retParent(elem, n) {
+            while(n && elem){//n过大，elem就为null
+                elem = elem.parentElement;
+                n--;
+            }
+            return elem;
+        }
+
+        //封装函数，返回指定第n个兄弟元素节点，n为正返回返回后面的，n为负返回前面的
+        function retSibling(e, n) {
+            while(n && e){
+                if(n>0){
+                    if(e.nextElementSibling){
+                        e = e.nextElementSibling;//IE9 一下用不了
+                    }else {
+                        for(e = e.nextSibling; e && e.nodeType != 1; e = e.nextSibling );
+                    }
+                    n--;
+                }
+                else{
+                    if(e.previousElementSibling){
+                        e = e.previousElementSibling;//IE9 一下用不了
+                    }else {
+                        for(e = e.previousSibling; e && e.nodeType != 1; e = e.previousSibling );
+                    }
+                    n++;
+                }
+            }
+            return e;
+        }
+
+        //插入节点
+        var text = document.createTextNode("hello world");
+        div.appendChild(text);
+
+        var div1 = document.getElementsByTagName('div')[1];
+        var ch = div1.firstElementChild;
+        var p = document.createElement('p');
+        div1.insertBefore(p, ch);//insert p before ch
+
+        //Element节点的一些方法
+        //设置标签属性
+        div1.setAttribute('style', 'background:red; height:100px; width:100px');
+
+        //封装insertAfter，在元素后面插入，类似insertBefore
+        Element.prototype.insertAfter = function(targetNode, afterNode) {
+            var beforeNode = afterNode.nextElementSibling;
+            if (beforeNode == null) {
+                this.appendChild(targetNode);
+            } else {
+                this.insertBefore(targetNode, beforeNode);
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    <script type="text/javascript" src="tools.js" defer="defer"></script>-->
+<!--    <script type="text/javascript" src="tools.js" async="async"></script>-->
+<!--    并行下载  异步 -->
+</head>
+<body>
+
+    <script type="text/javascript">
+        var script = document.createElement('script');  //创建
+        script.type = 'text/javascript'; 　　　　　　　　　//设置
+        script.src = " ./demo.js"; 　　　　　　　　　　　　
+        //下载文件，当下载时它会发送请求，发请求过程中，页面已经解析完,系统解析很速度很快 ps:引入dmeo2.js文件
+        script.onload = function(){
+            test();
+        }
+        // window有一种提示机制，onload事件。当触发onload就说明下载完了。
+        document.head.appendChild(script);
+
+        //IE没有onload
+        //另一种方法
+        // script.onreadystatechange = function () {
+        //     if(script.readyState == 'comlete' || script.readyState == 'loaded'){
+        //         test();
+        //     }
+        // }
+
+        //封装!
+        //一
+        function loadScript(url, callback) {
+            var script = document.createElement('script');  //创建
+            script.type = 'text/javascript'; 　　　　　　　　　//设置
+
+            //先绑定事件！
+            if(script.readyState){//IE
+                script.onreadystatechange = function () {
+                    if(script.readyState == 'comlete' || script.readyState == 'loaded'){
+                        callback();
+                    }
+                }
+            }else{//chrome firefox opera Safari
+                script.onload = function(){
+                    callback();
+                }
+            }
+            script.src = url;
+            document.head.appendChild(script);
+        }
+
+        loadScript('demo.js', function () {// 函数引用，在执行时不会读里面的代码
+            test();
+        });
+
+
+
+        // //二
+        // //demo.js内容
+        // var tools = {
+        //     test1 : function () {
+        //         console.log('b');
+        //     },
+        //     test2 :  function () {
+        //         console.log('c');
+        //     }
+        // }
+        // //封装和调用
+        // function loadScript(url, callback) {
+        //     var script = document.createElement('script');  //创建
+        //     script.type = 'text/javascript'; 　　　　　　　　　//设置
+        //
+        //     //先绑定事件！
+        //     if(script.readyState){//IE
+        //         script.onreadystatechange = function () {
+        //             if(script.readyState == 'comlete' || script.readyState == 'loaded'){
+        //                 tools[callback]();
+        //             }
+        //         }
+        //     }else{//chrome firefox opera Safari
+        //         script.onload = function(){
+        //             tools[callback]();
+        //         }
+        //     }
+        //     script.src = url;
+        //     document.head.appendChild(script);
+        // }
+        //
+        // loadScript('demo.js', 'test');
+
+    </script>
+
+</body>
+</html>

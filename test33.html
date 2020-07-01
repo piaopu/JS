@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    事件 绑定-->
+</head>
+<body>
+<!--    第一种绑定，在行间直接写 -->
+    <div style="height: 100px; width: 100px; background: greenyellow;" onclick="console.log('0')">
+    </div>
+
+    <div style="height: 100px; width: 100px; background: yellow;"></div>
+    <div style="height: 100px; width: 100px; background: cornflowerblue;"></div>
+    <div style="height: 100px; width: 100px; background: darkturquoise;"></div>
+
+    <script type="text/javascript">
+        var div1 = document.getElementsByTagName('div')[1];
+        //JS代码，绑定事件处理代码
+        div1.onclick = function () {
+            console.log('1');
+        };
+
+        //绑定事件监听函数
+        var div2 = document.getElementsByTagName('div')[2];
+        var div3 = document.getElementsByTagName('div')[3];
+
+        div2.addEventListener('click', function () {
+            console.log('2');
+        }, false);
+
+        // div3.attachEvent('onclick', function () {
+        //     console.log('2');
+        // });
+        //IEd独有
+
+    </script>
+
+</body>
+</html>

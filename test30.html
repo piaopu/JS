@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    滚动条 视口 -->
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        //封装获取滚动条高度的函数
+        function getScrollTop() {
+            var scroll_top = 0;
+            if (document.documentElement && document.documentElement.scrollTop) {
+                scroll_top = document.documentElement.scrollTop;
+            }
+            else if (document.body) {
+                scroll_top = document.body.scrollTop;
+            }
+            return scroll_top;
+        }
+
+        //获取视口的高度和宽度。
+        function getViewportOffset() {
+            if(window.innerWidth && 0){
+                return{
+                    w: window.innerWidth,
+                    h: window.innerHeight
+                }
+            }else if(document.compatMode === "CSS1Compat"){
+                return{
+                    w:  document.documentElement.clientWidth,
+                    h:  document.documentElement.clientHeight
+                }
+            }else{
+                return {
+                    w: document.body.clientWidth,
+                    h: document.body.clientHeight
+                }
+            }
+        }
+
+    </script>
+
+</body>
+</html>

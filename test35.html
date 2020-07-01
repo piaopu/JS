@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    事件处理模型-- 冒泡 捕获 及阻止冒泡和默认事件-->
+    <style>
+        .d1 .d2 .d3{cursor:pointer}
+        .d1 {
+            background-color: green;
+            position: relative;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .d2 {
+            background-color: blue;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .d3 {
+            background-color: red;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="d1">
+        <div class="d2">
+            <div class="d3">
+            </div>
+        </div>
+    </div>
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+
+    <script>
+
+        var d1 = document.getElementsByTagName('div')[0];
+        var d2 = document.getElementsByTagName('div')[1];
+        var d3 = document.getElementsByTagName('div')[2];
+
+        d1.addEventListener('click', function () {
+            console.log('d1 冒泡');
+        }, false);
+        d2.addEventListener('click', function () {
+            console.log('d2 冒泡');
+        }, false);
+        d3.addEventListener('click', function () {
+            console.log('d3 冒泡');
+        }, false);
+
+
+        d1.addEventListener('click', function () {
+            console.log('d1 捕获');
+        }, true);
+        d2.addEventListener('click', function () {
+            console.log('d2 捕获');
+        }, true);
+        d3.addEventListener('click', function () {
+            console.log('d3 捕获');
+        }, true);
+        // 执行结果
+        // d1 捕获
+        // d2 捕获
+        // d3 冒泡      d3这个事件绑定在前面，这是一个正常的事件执行
+        // d3 捕获      d3这个事件绑定在后面，再次事件执行
+        // d2 冒泡
+        // d1 冒泡
+
+        //取消事件冒泡
+        document.addEventListener('click', function () {
+            console.log('document');
+        }, false);
+
+        var li0 = document.getElementsByTagName('li')[0];
+        li0.addEventListener('click', function (e) {
+            e.stopPropagation();
+           // e.cancelBubble = true; IE独有
+            console.log('0');
+        }, false);
+
+        //封装取消事件冒泡 stopBubble
+        function stopBubble(event) {
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            } else {
+                event.cancelBubble = true;
+            }
+        }
+
+        // return false;  以对象属性的方式注册的事件才生效
+        //右键点击页面执行一个函数但不执行默认事件（出现菜单）
+        document.oncontextmenu = function () {
+            console.log('a');
+            return false;
+            //且 return false; 无法封装
+        }
+
+        //封装 阻止默认事件的发生 cancelHander
+        function cancelHander(event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>
