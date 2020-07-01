@@ -46,3 +46,33 @@ test21.html 使用闭包实现变量的管理，不污染全局变量
 test22.html 属性名的拼接
 
 test23.html 对象属性的遍历
+
+test24.html 深层拷贝
+
+test25.html 类数组 + 封装type + 数组去重
+
+test26.html try……catch + DOM基础操作
+
+test27.html 鼠标画图
+
+test28.html DOM节点
+
+test29.html date对象
+
+test30.html 滚动条 视口
+
+test31.html 自动阅读 回到起点 暂停
+
+test32.html 小方块的移动
+
+test33.html 事件及事件绑定
+
+test34.html 事件+立即执行函数  封装addEvent  解除事件处理
+
+test35.html 事件处理模型--冒泡、捕获  阻止冒泡和默认事件
+
+test36.html 事件源对象 和 事件委托
+
+test37.html 鼠标拖拽功能
+
+test38.html 并行下载 和 异步加载
